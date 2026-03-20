@@ -1,6 +1,13 @@
-/* FORCE COMIC SANS ON ABSOLUTELY EVERYTHING */
+/* Add this to the very top of style.css */
+@font-face {
+  font-family: 'Comic Sans MS';
+  src: url('Comic Sans MS.ttf') format('truetype'); 
+  /* If you put it in a folder, it would be url('fonts/your-font-file-name.ttf') */
+}
+
+/* Then update your universal rule to use that new name! */
 * {
-  font-family: "Comic Sans MS";
+  font-family: 'Comic Sans MS', "Comic Sans MS", cursive !important;
 }
 
 body {
