@@ -1,3 +1,38 @@
+// --- API INTEGRATION: FETCH A RANDOM MEAL ---
+async function fetchDailySpecial() {
+  const container = document.getElementById('daily-special-content');
+  container.innerHTML = '<p class="blink">LOADING DATA FROM MAINFRAME...</p>'; // Loading state
+  
+  try {
+    const response = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
+    const data = await response.json();
+    
+    const meal = data.meals[0];
+    const mealName = meal.strMeal;
+    const mealImg = meal.strMealThumb;
+    const mealCategory = meal.strCategory;
+    const recipeLink = meal.strSource || `https://www.youtube.com/results?search_query=${mealName} recipe`; 
+
+    container.innerHTML = `
+      <h3>${mealName}</h3>
+      <p><strong>Category:</strong> ${mealCategory}</p>
+      <img src="${mealImg}" alt="${mealName}">
+      <br><br>
+      <a href="${recipeLink}" target="_blank" style="color: blue; text-decoration: underline;">READ THE RECIPE</a>
+    `;
+  } catch (error) {
+    container.innerHTML = '<p style="color: red;">ERROR: The cyber-kitchen is closed! Please check your modem connection.</p>';
+    console.error(error);
+  }
+}
+
+// Run the fetch function when the script loads
+fetchDailySpecial();
+
+// Hook up the button so users can request a new meal from the API
+document.getElementById('new-meal-btn').addEventListener('click', fetchDailySpecial);
+
+
 // --- MIDI ERROR JOKE ---
 document.getElementById('play-midi').addEventListener('click', () => {
   alert("ERROR 404: 'burgertime.mid' could not be loaded. Please install QuickTime Player 4.0 or contact your Webmaster.");
