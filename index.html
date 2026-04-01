@@ -41,9 +41,9 @@
       <a href="#legacy">MY LEGACY</a> | 
       <a href="#game">FEED ME 3D</a> | 
       <a href="#mukbang">MUKBANG</a> | 
-      <a href="#daily-special-section">RECIPE API</a> | 
-      <a href="#burger-cam-section">BURGER API</a> | 
-      <a href="#resources">STUDY HALL</a> |
+      <a href="#daily-special-section">TODAY'S SPECIAL</a> | 
+      <a href="#burger-cam-section">BURGER RADAR</a> | 
+      <a href="#meatball-section">MAGIC MEATBALL</a> |
       <a href="#shoutout">FRIENDS</a> |
       <a href="#guestbook-section">GUESTBOOK</a>
     </nav>
@@ -61,10 +61,10 @@
 
     <section id="game" class="box game-box">
       <h2 class="yellow-bg">🍔 3D MINI-GAME: FEED BIG FELIZ! 🍟</h2>
-      <p>Move your mouse over the cyber-grid to catch the tumbling food! Don't let it fall into the void!</p>
+      <p>Catch the food! <strong>Avoid the broccoli (🥦) or lose points!</strong> Catch stars (🌟) for bonus points!</p>
       <div id="game-canvas">
         <div id="player">👄</div>
-        <div id="score-board">BURGERS CAUGHT: <span id="score">0</span></div>
+        <div id="score-board">SCORE: <span id="score">0</span></div>
       </div>
       <button id="start-game">START EATING (IN 3D)!</button>
     </section>
@@ -77,10 +77,20 @@
       </div>
     </section>
 
+    <section id="meatball-section" class="box purple-haze">
+      <h2 class="rainbow">🔮 THE MAGIC MEATBALL 🔮</h2>
+      <p>Ask the Magic Meatball a yes or no question about your future!</p>
+      <input type="text" id="meatball-question" placeholder="Type your question here..." style="width: 60%;">
+      <br>
+      <button id="ask-meatball" style="background: #8b0000; color: white;">ASK THE MEATBALL</button>
+      <div id="meatball-answer" class="meatball-display">
+        8
+      </div>
+    </section>
+
     <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
-      
       <section id="daily-special-section" class="box green-slime" style="margin: 0; width: 40%;">
-        <h2 class="rainbow">🍽️ MYSTERY MEAL 🍽️</h2>
+        <h2 class="rainbow">🍽️ TODAY'S SPECIAL 🍽️</h2>
         <p>Live healthy recommendation from the Web!</p>
         <div id="daily-special-content" class="api-box">
           <p class="blink">LOADING MEAL DATA...</p>
@@ -89,32 +99,20 @@
       </section>
 
       <section id="burger-cam-section" class="box cyan-glow" style="margin: 0; width: 40%;">
-        <h2>🍔 LIVE BURGER CAM 🍔</h2>
+        <h2>🍔 BURGER RADAR 🍔</h2>
         <p>Scanning global mainframes for burgers!</p>
         <div id="burger-api-content" class="api-box">
           <p class="blink">CONNECTING TO BURGER MAINFRAME...</p>
         </div>
         <button id="new-burger-btn">SCAN FOR BURGERS!</button>
       </section>
-
     </div>
-
-    <section id="resources" class="box blue-dream">
-      <h2 class="rainbow">🎓 STUDY HALL RESOURCES</h2>
-      <ul class="resource-list" style="list-style-type: none; padding: 0;">
-        <li>🍔 The Physics of a Perfect Patty</li>
-        <li>🧪 The Maillard Reaction: Chemistry of Crust</li>
-        <li>📜 Humanities: History of the Burger</li>
-      </ul>
-      <br>
-      <img src="https://web.archive.org/web/20090829071536/http://geocities.com/CollegePark/Quad/1360/construction.gif" alt="Under Construction">
-      <p class="blink" style="font-size: 1.2rem; color: yellow;">MORE LESSONS UNDER CONSTRUCTION!</p>
-    </section>
 
     <section id="shoutout" class="box gold-box">
       <h2>🤝 MY TEACHER BESTIES 🤝</h2>
       <p><a href="http://mrdavissciencelab.net" target="_blank" class="blink-link" style="color: green;">🔬 MRDAVISSCIENCELAB.NET 🔬</a></p>
       <p><a href="http://coachbeefgym.org" target="_blank" class="blink-link" style="color: red;">🏀 COACHBEEFGYM.ORG 🏀</a></p>
+      <p><a href="http://senoragarciaspanglish.com" target="_blank" class="blink-link" style="color: purple;">🌎 SENORAGARCIASPANGLISH.COM 🌎</a></p>
     </section>
 
     <section id="guestbook-section" class="box orange-crush">
