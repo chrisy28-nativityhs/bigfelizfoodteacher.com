@@ -10,6 +10,11 @@ document.addEventListener('mousemove', function(e) {
   setTimeout(() => particle.remove(), 800);
 });
 
+// --- BIO EASTER EGG ---
+document.getElementById('bio-secret').addEventListener('click', () => {
+  alert("FATAL ERROR: MAINFRAME BREACH!\n\nTop Secret Teacher Gossip:\nBig Feliz's real first name is... MARGARET! Don't tell Coach Beef!");
+});
+
 // --- API FETCHES ---
 async function fetchDailySpecial() {
   const container = document.getElementById('daily-special-content');
@@ -32,21 +37,13 @@ fetchDailySpecial(); fetchRandomBurger();
 document.getElementById('new-meal-btn').addEventListener('click', fetchDailySpecial);
 document.getElementById('new-burger-btn').addEventListener('click', fetchRandomBurger);
 
-// --- QUIZ & MEATBALL & MIDI ---
+// --- QUIZ & MIDI ---
 const quizQuestions = [{ q: "Chemical reaction for browned food flavor?", a: "maillard" }, { q: "Ounces in a cup?", a: "8" }];
 document.getElementById('pop-quiz').addEventListener('click', () => {
   const rq = quizQuestions[Math.floor(Math.random() * quizQuestions.length)];
   let ans = prompt("POP QUIZ!\n" + rq.q);
   if (ans && ans.toLowerCase().includes(rq.a)) { alert("A+!"); document.body.style.backgroundColor = "gold"; setTimeout(()=>document.body.style.backgroundColor="#000080", 2000); } 
   else { alert("F! See me after class."); }
-});
-
-const meatballAnswers = ["IT IS DECIDEDLY DELICIOUS", "OUTLOOK GREASY", "ASK AGAIN AFTER LUNCH", "DON'T COUNT ON IT", "YES, BUT ADD BACON"];
-document.getElementById('ask-meatball').addEventListener('click', () => {
-  if (document.getElementById('meatball-question').value.trim() === "") return alert("Ask a question!");
-  const display = document.getElementById('meatball-answer');
-  display.innerHTML = '...';
-  setTimeout(() => display.innerHTML = `<span class="meatball-answer-text">${meatballAnswers[Math.floor(Math.random() * meatballAnswers.length)]}</span>`, 1000);
 });
 
 document.getElementById('play-midi').addEventListener('click', () => alert("ERROR: Install QuickTime 4.0"));
@@ -139,7 +136,6 @@ const startBtn2 = document.getElementById('start-whack');
 let lastHole;
 let timeUp = false;
 let score2 = 0;
-let whackTimer;
 
 function randomTime(min, max) { return Math.round(Math.random() * (max - min) + min); }
 function randomHole(holes) {
@@ -155,7 +151,6 @@ function peep() {
   const hole = randomHole(holes);
   const snackEl = hole.querySelector('.snack');
   
-  // 20% chance it's an alarm clock (bad!)
   const isBad = Math.random() < 0.2;
   if(isBad) {
     snackEl.innerHTML = '⏰';
@@ -183,17 +178,15 @@ function startGame2() {
     timeUp = true;
     startBtn2.innerText = "PLAY AGAIN";
     alert("RECESS IS OVER! Final Whack Score: " + score2);
-  }, 15000); // 15 second round
+  }, 15000); 
 }
 
 function whack(e) {
-  if (!e.isTrusted) return; // cheater check
+  if (!e.isTrusted) return; 
   if (!this.classList.contains('up')) return;
-  
   this.classList.remove('up');
-  
   if(this.dataset.type === 'bad') {
-    score2 -= 3; // Penalty!
+    score2 -= 3; 
     document.body.style.backgroundColor = "red";
     setTimeout(()=>document.body.style.backgroundColor="#000080", 200);
   } else {
