@@ -13,7 +13,7 @@
 
   <div class="top-marquee">
     <marquee scrollamount="15"> 
-      🍔 WELCOME TO THE HOME OF BIG FELIZ!! 🍔 AWARD WINNING TEACHER 🍔 MUKBANG QUEEN 🍔 SHOUT OUT TO MR. DAVIS AND COACH BEEF!! 🍎 
+      🍔 WELCOME TO THE HOME OF BIG FELIZ!! 🍔 AWARD WINNING TEACHER 🍔 MUKBANG QUEEN 🍔 2 FULL 3D GAMES INSIDE!! 🍎 
     </marquee>
   </div>
 
@@ -32,19 +32,18 @@
       <p class="sparkle-text">Retired. Rewired. Ready to Eat.</p>
       <p>
         <img src="https://upload.wikimedia.org/wikipedia/commons/2/22/Animated_fire_by_nevit.gif" height="60" alt="flame"> 
-        <strong>HOTTEST SITE ON THE WEB!</strong> 
+        <strong>HOTTEST 3D ARCADE ON THE WEB!</strong> 
         <img src="https://upload.wikimedia.org/wikipedia/commons/2/22/Animated_fire_by_nevit.gif" height="60" alt="flame">
       </p>
     </div>
 
     <nav>
-      <a href="#legacy">MY LEGACY</a> | 
-      <a href="#game">FEED ME 3D</a> | 
+      <a href="#legacy">LEGACY</a> | 
+      <a href="#game1">FEED ME 3D</a> | 
+      <a href="#game2">WHACK-A-SNACK</a> | 
       <a href="#mukbang">MUKBANG</a> | 
-      <a href="#daily-special-section">TODAY'S SPECIAL</a> | 
-      <a href="#burger-cam-section">BURGER RADAR</a> | 
+      <a href="#apis">FOOD RADAR</a> | 
       <a href="#meatball-section">MAGIC MEATBALL</a> |
-      <a href="#shoutout">FRIENDS</a> |
       <a href="#guestbook-section">GUESTBOOK</a>
     </nav>
   </header>
@@ -52,26 +51,63 @@
   <main>
     <section id="legacy" class="box pink-neon">
       <h2 class="rainbow">🍎 THE TEACHER LEGACY 🍎</h2>
-      <p>I spent 30 years teaching <strong>Humanities and Food Science</strong>! I taught students the chemistry of a crust and the history of the harvest. I even released a documentary: <em>"Big Feliz: The Life of a Food Teacher"</em>!</p>
+      <p>I spent 30 years teaching <strong>Humanities and Food Science</strong>! Now I am pioneering 3D web graphics!</p>
+      
+      <div class="scene">
+        <div class="cube">
+          <div class="cube__face cube__face--front">🍔</div>
+          <div class="cube__face cube__face--back">🍕</div>
+          <div class="cube__face cube__face--right">🍟</div>
+          <div class="cube__face cube__face--left">🌭</div>
+          <div class="cube__face cube__face--top">🥓</div>
+          <div class="cube__face cube__face--bottom">🍎</div>
+        </div>
+      </div>
+
       <div class="legacy-card">
         <p><strong>Awards:</strong> Teacher of the Year (1998, 2004) <br> 
         <strong>Current Status:</strong> Retired & filming Mukbangs at Biggie's Burgers!</p>
       </div>
     </section>
 
-    <section id="game" class="box game-box">
-      <h2 class="yellow-bg">🍔 3D MINI-GAME: FEED BIG FELIZ! 🍟</h2>
-      <p>Catch the food! <strong>Avoid the broccoli (🥦) or lose points!</strong> Catch stars (🌟) for bonus points!</p>
+    <section id="game1" class="box game-box">
+      <h2 class="yellow-bg">🍔 GAME 1: FEED BIG FELIZ 3D! 🍟</h2>
+      <p>Catch the food! <strong>Avoid broccoli (🥦)!</strong> Catch stars (🌟)!</p>
+      
+      <div id="difficulty-selector">
+        <p style="margin: 5px 0; font-weight: bold; color: yellow;">SELECT DIFFICULTY:</p>
+        <button class="diff-btn active" data-speed="3" data-spawn="800">SNACK</button>
+        <button class="diff-btn" data-speed="6" data-spawn="500">LUNCH</button>
+        <button class="diff-btn" data-speed="10" data-spawn="250" style="background: red; color: white;">MUKBANG</button>
+      </div>
+
       <div id="game-canvas">
         <div id="player">👄</div>
         <div id="score-board">SCORE: <span id="score">0</span></div>
       </div>
-      <button id="start-game">START EATING (IN 3D)!</button>
+      <button id="start-game">START EATING!</button>
+    </section>
+
+    <section id="game2" class="box orange-crush">
+      <h2 class="rainbow">🔨 GAME 2: WHACK-A-SNACK 3D! 🔨</h2>
+      <p>Click the fast food popping out of the cyber-holes before it vanishes! Don't click the alarm clocks (⏰) or recess is over!</p>
+      
+      <div id="whack-board">
+        <div class="whack-score">SNACKS WHACKED: <span id="whack-score">0</span></div>
+        <div class="whack-grid">
+          <div class="hole" id="hole1"><div class="snack"></div></div>
+          <div class="hole" id="hole2"><div class="snack"></div></div>
+          <div class="hole" id="hole3"><div class="snack"></div></div>
+          <div class="hole" id="hole4"><div class="snack"></div></div>
+          <div class="hole" id="hole5"><div class="snack"></div></div>
+          <div class="hole" id="hole6"><div class="snack"></div></div>
+        </div>
+      </div>
+      <button id="start-whack">START WHACKING!</button>
     </section>
 
     <section id="mukbang" class="box black-hole">
       <h2 class="lime-text">🎥 DAILY MUKBANG VLOG 🎥</h2>
-      <p>I eat at <strong>Biggie’s Burgers and More</strong> every single day. It reminds me of my competitive eating days before I started teaching!</p>
       <div id="video-box" class="tv-static">
         <h3 class="blink">CLICK TO TURN ON TV</h3>
       </div>
@@ -79,53 +115,35 @@
 
     <section id="meatball-section" class="box purple-haze">
       <h2 class="rainbow">🔮 THE MAGIC MEATBALL 🔮</h2>
-      <p>Ask the Magic Meatball a yes or no question about your future!</p>
       <input type="text" id="meatball-question" placeholder="Type your question here..." style="width: 60%;">
       <br>
       <button id="ask-meatball" style="background: #8b0000; color: white;">ASK THE MEATBALL</button>
-      <div id="meatball-answer" class="meatball-display">
-        8
-      </div>
+      <div id="meatball-answer" class="meatball-display">8</div>
     </section>
 
-    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+    <div id="apis" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
       <section id="daily-special-section" class="box green-slime" style="margin: 0; width: 40%;">
         <h2 class="rainbow">🍽️ TODAY'S SPECIAL 🍽️</h2>
-        <p>Live healthy recommendation from the Web!</p>
-        <div id="daily-special-content" class="api-box">
-          <p class="blink">LOADING MEAL DATA...</p>
-        </div>
+        <div id="daily-special-content" class="api-box"><p class="blink">LOADING...</p></div>
         <button id="new-meal-btn">FETCH NEW MEAL!</button>
       </section>
 
       <section id="burger-cam-section" class="box cyan-glow" style="margin: 0; width: 40%;">
         <h2>🍔 BURGER RADAR 🍔</h2>
-        <p>Scanning global mainframes for burgers!</p>
-        <div id="burger-api-content" class="api-box">
-          <p class="blink">CONNECTING TO BURGER MAINFRAME...</p>
-        </div>
+        <div id="burger-api-content" class="api-box"><p class="blink">CONNECTING...</p></div>
         <button id="new-burger-btn">SCAN FOR BURGERS!</button>
       </section>
     </div>
 
-    <section id="shoutout" class="box gold-box">
-      <h2>🤝 MY TEACHER BESTIES 🤝</h2>
-      <p><a href="http://mrdavissciencelab.net" target="_blank" class="blink-link" style="color: green;">🔬 MRDAVISSCIENCELAB.NET 🔬</a></p>
-      <p><a href="http://coachbeefgym.org" target="_blank" class="blink-link" style="color: red;">🏀 COACHBEEFGYM.ORG 🏀</a></p>
-      <p><a href="http://senoragarciaspanglish.com" target="_blank" class="blink-link" style="color: purple;">🌎 SENORAGARCIASPANGLISH.COM 🌎</a></p>
-    </section>
-
-    <section id="guestbook-section" class="box orange-crush">
+    <section id="guestbook-section" class="box gold-box">
       <h2>📝 SIGN MY GUESTBOOK! 📝</h2>
       <form id="guestbook-form">
         <input type="text" id="gb-name" placeholder="YOUR NAME" required><br>
         <textarea id="gb-message" placeholder="LEAVE A MESSAGE!" required rows="3"></textarea><br>
         <button type="submit">SIGN GUESTBOOK</button>
       </form>
-      
       <div id="guestbook-entries" class="entries-box">
-        <p><strong>Miss Karen:</strong> Wow! I love your website! The fonts are amazing!</p>
-        <p><strong>Principal Skinner:</strong> Feliz, please report to the office.</p>
+        <p><strong>Miss Karen:</strong> Wow! I love your website!</p>
         <p><strong>Tommy G. (Class of '99):</strong> TEACHER FELIZ!! You were the best!</p>
       </div>
     </section>
@@ -136,7 +154,6 @@
       YOU ARE VISITOR NUMBER:<br>
       <span class="digital-font">0 1 2 4 8 9</span>
     </div>
-    <p>Proud member of the <strong>Teacher WebRing</strong>. <a href="#" style="color:cyan;">[Previous]</a> <a href="#" style="color:cyan;">[Next]</a></p>
     <marquee behavior="alternate" scrollamount="10">THANK YOU FOR VISITING! STAY HUNGRY! GO BULLDOGS! 🍎🍔🍟</marquee>
   </footer>
 
