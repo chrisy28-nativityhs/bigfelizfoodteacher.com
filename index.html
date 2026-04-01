@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>bigfelizfoodteacher.com - Eat Smart, Eat Big!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,7 +17,8 @@
     </marquee>
   </div>
 
-  <button id="play-midi" class="midi-btn">🎵 PLAY BACKGROUND MUSIC (.MID) 🎵</button>
+  <button id="play-midi" class="top-btn midi-btn">🎵 PLAY MUSIC (.MID) 🎵</button>
+  <button id="pop-quiz" class="top-btn quiz-btn">📝 TAKE POP QUIZ! 📝</button>
 
   <header>
     <div class="floater" style="top: 10%; left: 5%;">🍔</div>
@@ -35,9 +39,10 @@
 
     <nav>
       <a href="#legacy">MY LEGACY</a> | 
-      <a href="#game">FEED ME GAME</a> | 
-      <a href="#mukbang">DAILY MUKBANG</a> | 
-      <a href="#daily-special-section">MYSTERY MEAL</a> | 
+      <a href="#game">FEED ME 3D</a> | 
+      <a href="#mukbang">MUKBANG</a> | 
+      <a href="#daily-special-section">RECIPE API</a> | 
+      <a href="#burger-cam-section">BURGER API</a> | 
       <a href="#resources">STUDY HALL</a> |
       <a href="#shoutout">FRIENDS</a> |
       <a href="#guestbook-section">GUESTBOOK</a>
@@ -55,13 +60,13 @@
     </section>
 
     <section id="game" class="box game-box">
-      <h2 class="yellow-bg">🍔 MINI-GAME: FEED BIG FELIZ! 🍟</h2>
-      <p>Move your mouse over the gray box to catch the food! Don't let it hit the floor!</p>
+      <h2 class="yellow-bg">🍔 3D MINI-GAME: FEED BIG FELIZ! 🍟</h2>
+      <p>Move your mouse over the cyber-grid to catch the tumbling food! Don't let it fall into the void!</p>
       <div id="game-canvas">
         <div id="player">👄</div>
         <div id="score-board">BURGERS CAUGHT: <span id="score">0</span></div>
       </div>
-      <button id="start-game">START EATING!</button>
+      <button id="start-game">START EATING (IN 3D)!</button>
     </section>
 
     <section id="mukbang" class="box black-hole">
@@ -72,28 +77,27 @@
       </div>
     </section>
 
-    <section id="daily-special-section" class="box green-slime">
-      <h2 class="rainbow">🍽️ TODAY'S MYSTERY MEAL 🍽️</h2>
-      <p>Teacher Feliz's live recommendation directly from the World Wide Web!</p>
-      <div id="daily-special-content" class="api-box">
-        <p class="blink">LOADING MEAL DATA FROM MAINFRAME...</p>
-      </div>
-      <button id="new-meal-btn">FETCH NEW MEAL!</button>
-    </section>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+      
+      <section id="daily-special-section" class="box green-slime" style="margin: 0; width: 40%;">
+        <h2 class="rainbow">🍽️ MYSTERY MEAL 🍽️</h2>
+        <p>Live healthy recommendation from the Web!</p>
+        <div id="daily-special-content" class="api-box">
+          <p class="blink">LOADING MEAL DATA...</p>
+        </div>
+        <button id="new-meal-btn">FETCH NEW MEAL!</button>
+      </section>
 
-    <section id="shoutout" class="box gold-box">
-      <h2>🤝 MY TEACHER BESTIES 🤝</h2>
-      <p>Go visit my colleagues on the WebRing!</p>
-      
-      <p><a href="http://mrdavissciencelab.net" target="_blank" class="blink-link" style="color: green;">🔬 MRDAVISSCIENCELAB.NET 🔬</a><br>
-      <em>He blows things up, I eat things up!</em></p>
-      
-      <p><a href="http://coachbeefgym.org" target="_blank" class="blink-link" style="color: red;">🏀 COACHBEEFGYM.ORG 🏀</a><br>
-      <em>He makes them run, I make them carb-load!</em></p>
-      
-      <p><a href="http://senoragarciaspanglish.com" target="_blank" class="blink-link" style="color: purple;">🌎 SENORAGARCIASPANGLISH.COM 🌎</a><br>
-      <em>La mejor maestra on the net!</em></p>
-    </section>
+      <section id="burger-cam-section" class="box cyan-glow" style="margin: 0; width: 40%;">
+        <h2>🍔 LIVE BURGER CAM 🍔</h2>
+        <p>Scanning global mainframes for burgers!</p>
+        <div id="burger-api-content" class="api-box">
+          <p class="blink">CONNECTING TO BURGER MAINFRAME...</p>
+        </div>
+        <button id="new-burger-btn">SCAN FOR BURGERS!</button>
+      </section>
+
+    </div>
 
     <section id="resources" class="box blue-dream">
       <h2 class="rainbow">🎓 STUDY HALL RESOURCES</h2>
@@ -101,24 +105,30 @@
         <li>🍔 The Physics of a Perfect Patty</li>
         <li>🧪 The Maillard Reaction: Chemistry of Crust</li>
         <li>📜 Humanities: History of the Burger</li>
-        <li>🚧 <em>More lessons under construction!</em> 🚧</li>
       </ul>
+      <br>
+      <img src="https://web.archive.org/web/20090829071536/http://geocities.com/CollegePark/Quad/1360/construction.gif" alt="Under Construction">
+      <p class="blink" style="font-size: 1.2rem; color: yellow;">MORE LESSONS UNDER CONSTRUCTION!</p>
+    </section>
+
+    <section id="shoutout" class="box gold-box">
+      <h2>🤝 MY TEACHER BESTIES 🤝</h2>
+      <p><a href="http://mrdavissciencelab.net" target="_blank" class="blink-link" style="color: green;">🔬 MRDAVISSCIENCELAB.NET 🔬</a></p>
+      <p><a href="http://coachbeefgym.org" target="_blank" class="blink-link" style="color: red;">🏀 COACHBEEFGYM.ORG 🏀</a></p>
     </section>
 
     <section id="guestbook-section" class="box orange-crush">
       <h2>📝 SIGN MY GUESTBOOK! 📝</h2>
       <form id="guestbook-form">
         <input type="text" id="gb-name" placeholder="YOUR NAME" required><br>
-        <textarea id="gb-message" placeholder="LEAVE A MESSAGE FOR TEACHER FELIZ!" required rows="3"></textarea><br>
+        <textarea id="gb-message" placeholder="LEAVE A MESSAGE!" required rows="3"></textarea><br>
         <button type="submit">SIGN GUESTBOOK</button>
       </form>
       
       <div id="guestbook-entries" class="entries-box">
         <p><strong>Miss Karen:</strong> Wow! I love your website! The fonts are amazing!</p>
-        <p><strong>Principal Skinner:</strong> Feliz, please report to the office. You cannot expense 40 cheeseburgers to the Humanities department.</p>
-        <p><strong>Lunch Lady Doris:</strong> Finally, a teacher who respects the craft. Stop by the cafeteria later for extra tater tots.</p>
-        <p><strong>Tommy G. (Class of '99):</strong> TEACHER FELIZ!! You were the best! I still use the Maillard reaction every time I grill!</p>
-        <p><strong>Mr. Davis:</strong> Great site, Feliz! The MIDI button broke my Netscape Navigator, though.</p>
+        <p><strong>Principal Skinner:</strong> Feliz, please report to the office.</p>
+        <p><strong>Tommy G. (Class of '99):</strong> TEACHER FELIZ!! You were the best!</p>
       </div>
     </section>
   </main>
