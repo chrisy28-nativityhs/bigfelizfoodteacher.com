@@ -31,6 +31,7 @@ body {
   font-size: 12px;
   border: 4px outset green;
   cursor: pointer;
+  z-index: 1000;
 }
 .midi-btn { left: 10px; }
 .quiz-btn { right: 10px; background: #ff00ff; border-color: #8b008b; color: white; }
@@ -79,6 +80,19 @@ nav a:hover {
   text-decoration: underline;
 }
 
+/* CURSOR TRAIL PARTICLES */
+.trail-particle {
+  position: fixed;
+  pointer-events: none;
+  font-size: 20px;
+  z-index: 9999;
+  animation: fadeOut 0.8s forwards;
+}
+@keyframes fadeOut {
+  0% { opacity: 1; transform: scale(1) translateY(0px); }
+  100% { opacity: 0; transform: scale(0.5) translateY(20px); }
+}
+
 /* FLOATING ANIMATIONS */
 @keyframes float {
   0% { transform: translateY(0px) rotate(0deg); }
@@ -88,7 +102,7 @@ nav a:hover {
 .floater {
   position: fixed;
   font-size: 60px;
-  z-index: 999;
+  z-index: 990;
   animation: float 3s ease-in-out infinite;
   pointer-events: none;
 }
@@ -104,11 +118,36 @@ nav a:hover {
 .pink-neon { background: #ff1493; border-color: #00ffff; color: white; }
 .black-hole { background: #000; border-color: lime; color: #0f0; }
 .gold-box { background: #ffd700; border-color: #ff0000; color: #000; }
-.blue-dream { background: #1e90ff; border-color: yellow; color: white; }
 .orange-crush { background: #ff4500; border-color: #000; color: white; }
 .game-box { background: #8a2be2; border-color: #00ff00; color: white; }
 .green-slime { background: #32cd32; border-color: #8b008b; color: #000; }
-.cyan-glow { background: #00ffff; border-color: #ff00ff; color: #000; } /* Burger API Box */
+.cyan-glow { background: #00ffff; border-color: #ff00ff; color: #000; } 
+.purple-haze { background: #4b0082; border-color: #ffff00; color: white; }
+
+/* MAGIC MEATBALL */
+.meatball-display {
+  background: radial-gradient(circle, #8b0000 0%, #3e0000 100%);
+  color: white;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin: 20px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5rem;
+  border: 8px solid black;
+  box-shadow: inset -10px -10px 20px rgba(0,0,0,0.8), 0 0 15px yellow;
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+}
+.meatball-answer-text {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  color: yellow;
+  text-shadow: 2px 2px black;
+}
 
 .api-box {
   background: white;
