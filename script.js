@@ -35,7 +35,7 @@ document.addEventListener('mousemove', function(e) {
 // --- BIO EASTER EGG ---
 document.getElementById('bio-secret').addEventListener('click', () => {
   playBeep(200, 'sawtooth', 0.5);
-  alert("FATAL ERROR: MAINFRAME BREACH!\n\nTop Secret Teacher Gossip:\nBig Feliz's real first name is... MARGARET! Don't tell Coach Beef!");
+  alert("FATAL ERROR: MAINFRAME BREACH!\n\nTop Secret Teacher Gossip:\nBig Feliz's real first name is... DEBRA! Don't tell Coach Beef!");
 });
 
 // --- MULTIPLE DATA APIs (10 PTS) ---
