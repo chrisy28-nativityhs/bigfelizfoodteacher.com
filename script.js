@@ -1,88 +1,235 @@
-/* FORCE COMIC SANS ON ABSOLUTELY EVERYTHING */
-* { font-family: "Comic Sans MS", "Comic Sans", "Marker Felt", "Comic Neue", cursive !important; box-sizing: border-box; }
+// --- AUDIO SYNTH API (10 PTS) ---
+// Creates a retro 8-bit beep when buttons are clicked!
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+function playBeep(freq = 440, type = 'square', duration = 0.1) {
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  const oscillator = audioCtx.createOscillator();
+  const gainNode = audioCtx.createGain();
+  oscillator.type = type;
+  oscillator.frequency.value = freq;
+  gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+  gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+  oscillator.connect(gainNode);
+  gainNode.connect(audioCtx.destination);
+  oscillator.start();
+  oscillator.stop(audioCtx.currentTime + duration);
+}
 
-body { background-color: #000080; background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); color: #ffff00; margin: 0; text-align: center; cursor: url('https://cur.cursors-4u.net/food/foo-1/foo3.cur'), auto; overflow-x: hidden; }
+// Attach sound to EVERY button!
+document.querySelectorAll('button').forEach(btn => {
+  btn.addEventListener('mousedown', () => playBeep(Math.random() * 400 + 400, 'square', 0.1));
+});
 
-.top-marquee { background: red; color: white; padding: 5px; font-weight: bold; font-size: 24px; border-bottom: 5px dashed yellow; }
+// --- CURSOR TRAIL EFFECT ---
+document.addEventListener('mousemove', function(e) {
+  const particle = document.createElement('div');
+  particle.className = 'trail-particle';
+  const emojis = ['✨', '🍔', '🍟', '💫'];
+  particle.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+  particle.style.left = (e.clientX + 10) + 'px';
+  particle.style.top = (e.clientY + 10) + 'px';
+  document.body.appendChild(particle);
+  setTimeout(() => particle.remove(), 800);
+});
 
-/* ANIMATION REQUIREMENT: SMOOTH TRANSITIONS ON NAV LINKS */
-nav { background: yellow; padding: 15px; border: 6px ridge red; position: sticky; top: 0; z-index: 100; }
-nav a { color: blue; text-decoration: none; font-weight: bold; padding: 5px 10px; font-size: 1.2rem; display: inline-block; transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease, text-shadow 0.3s ease; border-radius: 5px; }
-nav a:hover { background: red; color: white; transform: scale(1.15) rotate(-3deg); text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
+// --- BIO EASTER EGG ---
+document.getElementById('bio-secret').addEventListener('click', () => {
+  playBeep(200, 'sawtooth', 0.5);
+  alert("FATAL ERROR: MAINFRAME BREACH!\n\nTop Secret Teacher Gossip:\nBig Feliz's real first name is... MARGARET! Don't tell Coach Beef!");
+});
 
-/* ANIMATION REQUIREMENT: SMOOTH TRANSITIONS ON BUTTONS */
-button { font-size: 1.2rem; padding: 10px 15px; background: yellow; color: red; border: 6px outset orange; cursor: pointer; font-weight: bold; margin-top: 10px; transition: transform 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease, background-color 0.2s ease; }
-button:hover { transform: scale(1.1); box-shadow: 0 0 20px lime; background-color: #fffacd; border-color: #ff00ff; }
-button:active { border-style: inset; transform: scale(0.95); }
+// --- MULTIPLE DATA APIs (10 PTS) ---
 
-.top-btn { position: absolute; top: 50px; background: lime; color: black; font-size: 12px; border: 4px outset green; cursor: pointer; z-index: 1000; }
-.midi-btn { left: 10px; }
-.quiz-btn { right: 10px; background: #ff00ff; border-color: #8b008b; color: white; }
+// 1. Advice API
+async function fetchAdvice() {
+  const container = document.getElementById('advice-api-content');
+  container.innerHTML = '<p class="blink">THINKING...</p>';
+  try {
+    const response = await fetch('https://api.adviceslip.com/advice');
+    const data = await response.json();
+    container.innerHTML = `<em>"${data.slip.advice}"</em>`;
+  } catch (e) { container.innerHTML = '<p style="color: red;">ERROR: BRAIN OFFLINE</p>'; }
+}
 
-.hero { padding: 40px; border-bottom: 10px double #00ffff; background: rgba(0, 0, 0, 0.5); margin-top: 20px; }
-.blink { animation: blinker 0.4s step-end infinite; font-size: 3.5rem; color: #ff00ff; text-shadow: 4px 4px #fff, -4px -4px #00ffff; margin: 0; }
-@keyframes blinker { 50% { opacity: 0; } }
-.sparkle-text { font-size: 2rem; color: lime; font-weight: bold; }
+// 2. Random Meal API
+async function fetchDailySpecial() {
+  const container = document.getElementById('daily-special-content');
+  container.innerHTML = '<p class="blink">LOADING...</p>';
+  try {
+    const response = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
+    const meal = (await response.json()).meals[0];
+    container.innerHTML = `<h3>${meal.strMeal}</h3><p><em>${meal.strCategory}</em></p><img src="${meal.strMealThumb}" alt="meal"><br><a href="${meal.strSource || '#'}" target="_blank" style="color: blue;">VIEW RECIPE</a>`;
+  } catch (e) { container.innerHTML = '<p style="color: red;">ERROR 404</p>'; }
+}
 
-.trail-particle { position: fixed; pointer-events: none; font-size: 20px; z-index: 9999; animation: fadeOut 0.8s forwards; }
-@keyframes fadeOut { 0% { opacity: 1; transform: scale(1) translateY(0px); } 100% { opacity: 0; transform: scale(0.5) translateY(20px); } }
-@keyframes float { 0% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-30px) rotate(20deg); } 100% { transform: translateY(0px) rotate(0deg); } }
-.floater { position: fixed; font-size: 60px; z-index: 990; animation: float 3s ease-in-out infinite; pointer-events: none; }
+// 3. Category Search API (No more repetitive burgers!)
+async function fetchCategoryRadar() {
+  const container = document.getElementById('category-api-content');
+  const cat = document.getElementById('food-category').value;
+  container.innerHTML = '<p class="blink">SCANNING...</p>';
+  try {
+    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${cat}`);
+    const data = await response.json();
+    const meals = data.meals;
+    // Pick a totally random meal from the selected category array
+    const rMeal = meals[Math.floor(Math.random() * meals.length)];
+    container.innerHTML = `<h3>${rMeal.strMeal}</h3><img src="${rMeal.strMealThumb}" alt="food"><br><span style="color: purple; font-weight: bold;">BIG FELIZ APPROVED ${cat.toUpperCase()}!</span>`;
+  } catch (e) { container.innerHTML = '<p style="color: red;">MODEM ERROR</p>'; }
+}
 
-.box { margin: 30px auto; width: 85%; max-width: 900px; padding: 25px; border: 10px ridge; }
-.pink-neon { background: #ff1493; border-color: #00ffff; color: white; }
-.gold-box { background: #ffd700; border-color: #ff0000; color: #000; }
-.orange-crush { background: #ff4500; border-color: #000; color: white; }
-.game-box { background: #8a2be2; border-color: #00ff00; color: white; }
-.green-slime { background: #32cd32; border-color: #8b008b; color: #000; }
-.cyan-glow { background: #00ffff; border-color: #ff00ff; color: #000; } 
-.blue-dream { background: #1e90ff; border-color: yellow; color: white; }
-.purple-haze { background: #4b0082; border-color: #ffff00; color: white; }
+// Init APIs
+fetchAdvice(); fetchDailySpecial(); fetchCategoryRadar();
+document.getElementById('new-advice-btn').addEventListener('click', fetchAdvice);
+document.getElementById('new-meal-btn').addEventListener('click', fetchDailySpecial);
+document.getElementById('new-category-btn').addEventListener('click', fetchCategoryRadar);
 
-/* 3D SPINNING CUBE CSS */
-.scene { width: 100px; height: 100px; perspective: 600px; margin: 30px auto; }
-.cube { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; animation: spinCube 4s infinite linear; }
-.cube__face { position: absolute; width: 100px; height: 100px; border: 4px ridge lime; font-size: 60px; line-height: 100px; text-align: center; background: rgba(0,0,0,0.8); box-shadow: inset 0 0 20px cyan; }
-.cube__face--front  { transform: rotateY(  0deg) translateZ(50px); }
-.cube__face--right  { transform: rotateY( 90deg) translateZ(50px); }
-.cube__face--back   { transform: rotateY(180deg) translateZ(50px); }
-.cube__face--left   { transform: rotateY(-90deg) translateZ(50px); }
-.cube__face--top    { transform: rotateX( 90deg) translateZ(50px); }
-.cube__face--bottom { transform: rotateX(-90deg) translateZ(50px); }
-@keyframes spinCube { 100% { transform: rotateY(360deg) rotateX(360deg); } }
+// --- QUIZ & MIDI ---
+const quizQuestions = [{ q: "Chemical reaction for browned food flavor?", a: "maillard" }, { q: "Ounces in a cup?", a: "8" }];
+document.getElementById('pop-quiz').addEventListener('click', () => {
+  const rq = quizQuestions[Math.floor(Math.random() * quizQuestions.length)];
+  let ans = prompt("POP QUIZ!\n" + rq.q);
+  if (ans && ans.toLowerCase().includes(rq.a)) { 
+    playBeep(880, 'sine', 0.2); setTimeout(()=>playBeep(1100, 'sine', 0.4), 200);
+    alert("A+!"); document.body.style.backgroundColor = "gold"; setTimeout(()=>document.body.style.backgroundColor="#000080", 2000); 
+  } else { 
+    playBeep(150, 'sawtooth', 0.5);
+    alert("F! See me after class."); 
+  }
+});
+document.getElementById('play-midi').addEventListener('click', () => {
+    // Play a little digital jingle!
+    playBeep(261.63, 'square', 0.1); 
+    setTimeout(() => playBeep(329.63, 'square', 0.1), 150);
+    setTimeout(() => playBeep(392.00, 'square', 0.1), 300);
+    setTimeout(() => playBeep(523.25, 'square', 0.3), 450);
+});
 
-.rainbow { background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text; color: transparent; font-size: 3rem; background-color: white; }
+// --- GAME 1: FEED BIG FELIZ 3D ---
+const canvas = document.getElementById('game-canvas');
+const player = document.getElementById('player');
+const scoreDisplay = document.getElementById('score');
+const startBtn = document.getElementById('start-game');
+const diffBtns = document.querySelectorAll('.diff-btn');
 
-/* BIOGRAPHY SCROLL BOX & SVG */
-.svg-container { margin: 10px auto; background: rgba(0,0,0,0.3); display: inline-block; padding: 15px; border-radius: 50%; border: 4px dashed yellow; box-shadow: 0 0 15px cyan; }
-.svg-container svg { animation: float 3s ease-in-out infinite; }
-.bio-scrollbox { background: white; color: black; height: 250px; overflow-y: scroll; border: 8px inset #444; padding: 20px; text-align: left; font-family: "Courier New", Courier, monospace !important; font-size: 1.1rem; line-height: 1.5; }
-.bio-scrollbox h3 { color: blue; border-bottom: 2px dashed red; padding-bottom: 5px; margin-top: 20px; font-family: "Courier New", Courier, monospace !important; }
-.bio-scrollbox p { font-family: "Courier New", Courier, monospace !important; }
+let score1 = 0, gameActive1 = false, gameInterval1;
+let currentBaseSpeed = 3, currentSpawnRate = 800;
 
-/* GAME 1 STYLES */
-#difficulty-selector button { font-size: 1rem; padding: 5px 10px; margin: 0 5px; background: #ddd; color: black; border: 4px outset gray; }
-#difficulty-selector button.active { background: yellow; border-color: orange; font-weight: bold; transform: scale(1.1); box-shadow: 0 0 15px orange; }
-#game-canvas { width: 100%; height: 350px; background: repeating-linear-gradient(0deg, transparent, transparent 19px, lime 20px), repeating-linear-gradient(90deg, transparent, transparent 19px, lime 20px); background-color: #111; background-size: 40px 40px; border: 8px inset #333; position: relative; overflow: hidden; margin: 15px 0; cursor: none; perspective: 600px; transform-style: preserve-3d; box-shadow: inset 0 0 50px #000; }
-#player { position: absolute; bottom: 20px; font-size: 60px; left: 50%; transform: translateX(-50%) translateZ(60px); text-shadow: 0px 15px 10px rgba(0,0,0,0.8); transition: transform 0.05s ease-out; }
-.food-item { position: absolute; font-size: 45px; text-shadow: 0px 20px 15px rgba(0,0,0,0.9); animation: tumble3D 1.5s linear infinite; }
-@keyframes tumble3D { 0% { transform: rotateY(0deg) rotateX(0deg) translateZ(0px); } 50% { transform: rotateY(180deg) rotateX(180deg) translateZ(40px); } 100% { transform: rotateY(360deg) rotateX(360deg) translateZ(0px); } }
-#score-board { color: lime; font-weight: bold; font-size: 1.5rem; position: absolute; top: 10px; left: 10px; background: black; padding: 5px; border: 3px solid white; transform: translateZ(20px); }
+diffBtns.forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    if(gameActive1) return;
+    diffBtns.forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    currentBaseSpeed = parseFloat(e.target.dataset.speed);
+    currentSpawnRate = parseInt(e.target.dataset.spawn);
+  });
+});
 
-/* GAME 2 STYLES */
-#whack-board { background: #222; border: 8px inset #555; padding: 20px; perspective: 800px; position: relative; margin: 15px auto; max-width: 600px; }
-.whack-score { font-size: 1.5rem; color: cyan; background: black; border: 3px solid white; display: inline-block; padding: 5px 15px; margin-bottom: 15px; }
-.whack-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; transform: rotateX(20deg); transform-style: preserve-3d; }
-.hole { background: #000; border-radius: 50%; height: 100px; box-shadow: inset 0 20px 30px rgba(0,0,0,1), 0 5px 0 #444; position: relative; overflow: hidden; cursor: crosshair; }
-.snack { position: absolute; bottom: -100px; left: 50%; transform: translateX(-50%) translateZ(0); font-size: 60px; transition: all 0.2s ease-out; user-select: none; }
-.snack.up { bottom: 10px; transform: translateX(-50%) translateZ(50px) scale(1.2); text-shadow: 0 10px 5px rgba(0,0,0,0.8); }
+canvas.addEventListener('mousemove', (e) => {
+  if (!gameActive1) return;
+  let x = e.clientX - canvas.getBoundingClientRect().left - 30; 
+  if (x < 0) x = 0; if (x > canvas.offsetWidth - 60) x = canvas.offsetWidth - 60;
+  player.style.left = x + 'px';
+});
 
-/* MISC */
-.api-box { background: white; border: 5px dashed red; padding: 15px; margin: 15px auto; color: black; font-weight: bold; font-size: 1.1rem; max-width: 100%; box-shadow: inset 0 0 10px rgba(0,0,0,0.2); }
-.api-box img { border: 6px ridge gold; max-width: 100%; height: auto; margin-top: 10px; }
-input, textarea { width: 80%; margin: 10px; padding: 10px; font-size: 1.2rem; border: 5px inset #ccc; background: #ffffcc; }
-.entries-box { background: white; color: black; border: 5px dashed blue; padding: 15px; margin-top: 20px; text-align: left; height: 150px; overflow-y: scroll; font-size: 1.2rem; }
-.entries-box p { border-bottom: 2px dotted gray; padding-bottom: 5px; }
-footer { background: black; color: white; padding: 20px; font-size: 1.2rem; border-top: 8px solid lime; margin-top: 40px; }
-.hit-counter { margin: 20px auto; border: 5px groove gray; display: inline-block; padding: 10px; background: #222; }
-.digital-font { font-size: 2rem; color: red; background: black; padding: 5px; letter-spacing: 5px; border: 2px inset #444; }
+function spawnFood() {
+  if (!gameActive1) return;
+  const food = document.createElement('div');
+  food.className = 'food-item';
+  const r = Math.random();
+  let type = "good";
+  if (r < 0.1) { food.innerHTML = '🌟'; type = "bonus"; } 
+  else if (r < 0.3) { food.innerHTML = '🥦'; type = "bad"; } 
+  else { const f = ['🍔', '🍟', '🥓', '🍕', '🌭']; food.innerHTML = f[Math.floor(Math.random() * f.length)]; }
+  
+  food.style.left = Math.random() * (canvas.offsetWidth - 40) + 'px';
+  food.style.top = '-40px';
+  food.dataset.type = type;
+  canvas.appendChild(food);
+
+  let speed = currentBaseSpeed + (score1 * 0.1) + Math.random() * 2; 
+
+  let fallInt = setInterval(() => {
+    if (!gameActive1) { clearInterval(fallInt); food.remove(); return; }
+    let top = parseFloat(food.style.top);
+    food.style.top = (top + speed) + 'px';
+
+    const pR = player.getBoundingClientRect(), fR = food.getBoundingClientRect();
+    if (fR.bottom >= pR.top && fR.top <= pR.bottom && fR.right >= pR.left + 15 && fR.left <= pR.right - 15) {
+      if (type === "bad") { score1 -= 2; player.innerHTML = '🤢'; playBeep(100, 'sawtooth', 0.2); document.body.style.backgroundColor = "green"; } 
+      else if (type === "bonus") { score1 += 5; player.innerHTML = '🤩'; playBeep(800, 'sine', 0.1); document.body.style.backgroundColor = "gold"; } 
+      else { score1++; player.innerHTML = '😋'; playBeep(400, 'square', 0.05); }
+      scoreDisplay.innerText = score1;
+      setTimeout(() => { player.innerHTML = '👄'; document.body.style.backgroundColor = '#000080'; }, 300); 
+      food.remove(); clearInterval(fallInt);
+      if (score1 < 0) endGame1("GAME OVER! YOU ATE BROCCOLI!");
+    }
+    if (top > canvas.offsetHeight) { food.remove(); clearInterval(fallInt); }
+  }, 20);
+}
+
+function endGame1(msg) {
+  gameActive1 = false; clearInterval(gameInterval1); startBtn.innerText = "RESTART EATING!";
+  document.body.style.backgroundColor = '#000080'; player.innerHTML = '😵'; alert(msg);
+}
+
+startBtn.addEventListener('click', () => {
+  if (!gameActive1) {
+    gameActive1 = true; score1 = 0; scoreDisplay.innerText = score1;
+    startBtn.innerText = "STOP EATING!"; player.innerHTML = '👄';
+    gameInterval1 = setInterval(spawnFood, currentSpawnRate);
+  } else endGame1("BURGER COMA! SCORE: " + score1);
+});
+
+// --- GAME 2: WHACK-A-SNACK 3D ---
+const holes = document.querySelectorAll('.hole');
+const scoreBoard2 = document.getElementById('whack-score');
+const startBtn2 = document.getElementById('start-whack');
+let lastHole, timeUp = false, score2 = 0;
+
+function randomTime(min, max) { return Math.round(Math.random() * (max - min) + min); }
+function randomHole(holes) {
+  const idx = Math.floor(Math.random() * holes.length);
+  const hole = holes[idx];
+  if (hole === lastHole) return randomHole(holes);
+  lastHole = hole; return hole;
+}
+
+function peep() {
+  const time = randomTime(400, 1000);
+  const hole = randomHole(holes);
+  const snackEl = hole.querySelector('.snack');
+  
+  if(Math.random() < 0.2) { snackEl.innerHTML = '⏰'; snackEl.dataset.type = 'bad'; } 
+  else { const snacks = ['🍔', '🍟', '🥤', '🍩']; snackEl.innerHTML = snacks[Math.floor(Math.random() * snacks.length)]; snackEl.dataset.type = 'good'; }
+  
+  snackEl.classList.add('up');
+  setTimeout(() => { snackEl.classList.remove('up'); if (!timeUp) peep(); }, time);
+}
+
+function startGame2() {
+  scoreBoard2.textContent = 0; timeUp = false; score2 = 0;
+  startBtn2.innerText = "WHACKING..."; peep();
+  setTimeout(() => { timeUp = true; startBtn2.innerText = "PLAY AGAIN"; alert("RECESS IS OVER! Final Whack Score: " + score2); }, 15000); 
+}
+
+function whack(e) {
+  if (!e.isTrusted || !this.classList.contains('up')) return; 
+  this.classList.remove('up');
+  if(this.dataset.type === 'bad') {
+    score2 -= 3; playBeep(150, 'triangle', 0.2);
+    document.body.style.backgroundColor = "red"; setTimeout(()=>document.body.style.backgroundColor="#000080", 200);
+  } else { score2++; playBeep(600, 'square', 0.05); }
+  scoreBoard2.textContent = score2;
+}
+
+holes.forEach(hole => hole.querySelector('.snack').addEventListener('mousedown', whack));
+startBtn2.addEventListener('click', () => { if(!timeUp && startBtn2.innerText === "WHACKING...") return; startGame2(); });
+
+// GUESTBOOK
+document.getElementById('guestbook-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const box = document.getElementById('guestbook-entries');
+  const p = document.createElement('p');
+  p.innerHTML = `<strong>${document.getElementById('gb-name').value}:</strong> ${document.getElementById('gb-message').value}`;
+  box.prepend(p); e.target.reset(); alert("SAVED TO MAINFRAME!");
+});
